@@ -17,49 +17,45 @@ import java.net.URL;
 import java.util.List;
 import java.util.ArrayList;
 
-/**
- * This class provides a GUI for solitaire games related to Elevens.
- */
+
 public class CardGameGUI extends JFrame implements ActionListener {
 
-    /** Height of the game frame. */
+
     private static final int DEFAULT_HEIGHT = 302;
-    /** Width of the game frame. */
+
     private static final int DEFAULT_WIDTH = 800;
-    /** Width of a card. */
+ 
     private static final int CARD_WIDTH = 73;
-    /** Height of a card. */
+    
     private static final int CARD_HEIGHT = 97;
-    /** Row (y coord) of the upper left corner of the first card. */
+
     private static final int LAYOUT_TOP = 30;
-    /** Column (x coord) of the upper left corner of the first card. */
+
     private static final int LAYOUT_LEFT = 30;
-    /** Distance between the upper left x coords of
-     *  two horizonally adjacent cards. */
+ 
+ 
     private static final int LAYOUT_WIDTH_INC = 100;
-    /** Distance between the upper left y coords of
-     *  two vertically adjacent cards. */
+  
     private static final int LAYOUT_HEIGHT_INC = 125;
-    /** y coord of the "Replace" button. */
+  
     private static final int BUTTON_TOP = 30;
-    /** x coord of the "Replace" button. */
+  
     private static final int BUTTON_LEFT = 570;
-    /** Distance between the tops of the "Replace" and "Restart" buttons. */
+  
     private static final int BUTTON_HEIGHT_INC = 50;
-    /** y coord of the "n undealt cards remain" label. */
+
     private static final int LABEL_TOP = 160;
-    /** x coord of the "n undealt cards remain" label. */
+
     private static final int LABEL_LEFT = 540;
-    /** Distance between the tops of the "n undealt cards" and
-     *  the "You lose/win" labels. */
+
     private static final int LABEL_HEIGHT_INC = 35;
 
-    /** The board (Board subclass). */
+
     private Board board;
 
-    /** The main panel containing the game components. */
+
     private JPanel panel;
-    /** The Replace button. */
+
     private JButton replaceButton;
     /** The Restart button. */
     private JButton restartButton;
@@ -288,7 +284,7 @@ public class CardGameGUI extends JFrame implements ActionListener {
                     selection.add(new Integer(k));
                 }
             }
-            // Make sure that the selected cards represent a legal replacement.
+       
             if (!board.isLegal(selection)) {
                 signalError();
                 return;
@@ -296,7 +292,7 @@ public class CardGameGUI extends JFrame implements ActionListener {
             for (int k = 0; k < board.size(); k++) {
                 selections[k] = false;
             }
-            // Do the replace.
+
             board.replaceSelectedCards(selection);
             if (board.isEmpty()) {
                 signalWin();
@@ -323,9 +319,7 @@ public class CardGameGUI extends JFrame implements ActionListener {
         }
     }
 
-    /**
-     * Display a win.
-     */
+
     private void signalWin() {
         getRootPane().setDefaultButton(restartButton);
         winMsg.setVisible(true);
@@ -333,25 +327,16 @@ public class CardGameGUI extends JFrame implements ActionListener {
         totalGames++;
     }
 
-    /**
-     * Display a loss.
-     */
     private void signalLoss() {
         getRootPane().setDefaultButton(restartButton);
         lossMsg.setVisible(true);
         totalGames++;
     }
 
-    /**
-     * Receives and handles mouse clicks.  Other mouse events are ignored.
-     */
+
     private class MyMouseListener implements MouseListener {
 
-        /**
-         * Handle a mouse click on a card by toggling its "selected" property.
-         * Each card is represented as a label.
-         * @param e the mouse event.
-         */
+
         public void mouseClicked(MouseEvent e) {
             for (int k = 0; k < board.size(); k++) {
                 if (e.getSource().equals(displayCards[k])
@@ -364,31 +349,17 @@ public class CardGameGUI extends JFrame implements ActionListener {
             signalError();
         }
 
-        /**
-         * Ignore a mouse exited event.
-         * @param e the mouse event.
-         */
         public void mouseExited(MouseEvent e) {
         }
 
-        /**
-         * Ignore a mouse released event.
-         * @param e the mouse event.
-         */
+
         public void mouseReleased(MouseEvent e) {
         }
 
-        /**
-         * Ignore a mouse entered event.
-         * @param e the mouse event.
-         */
         public void mouseEntered(MouseEvent e) {
         }
 
-        /**
-         * Ignore a mouse pressed event.
-         * @param e the mouse event.
-         */
+
         public void mousePressed(MouseEvent e) {
         }
     }
