@@ -57,39 +57,35 @@ public class CardGameGUI extends JFrame implements ActionListener {
     private JPanel panel;
 
     private JButton replaceButton;
-    /** The Restart button. */
+ 
     private JButton restartButton;
-    /** The "number of undealt cards remain" message. */
+   
     private JLabel statusMsg;
-    /** The "you've won n out of m games" message. */
+ 
     private JLabel totalsMsg;
-    /** The card displays. */
+ 
     private JLabel[] displayCards;
-    /** The win message. */
+
     private JLabel winMsg;
-    /** The loss message. */
+
     private JLabel lossMsg;
-    /** The coordinates of the card displays. */
+
     private Point[] cardCoords;
 
-    /** kth element is true iff the user has selected card #k. */
     private boolean[] selections;
-    /** The number of games won. */
+ 
     private int totalWins;
-    /** The number of games played. */
+ 
     private int totalGames;
 
 
-    /**
-     * Initialize the GUI.
-     * @param gameBoard is a <code>Board</code> subclass.
-     */
+
     public CardGameGUI(Board gameBoard) {
         board = gameBoard;
         totalWins = 0;
         totalGames = 0;
 
-        // Initialize cardCoords using 5 cards per row
+ 
         cardCoords = new Point[board.size()];
         int x = LAYOUT_LEFT;
         int y = LAYOUT_TOP;
@@ -109,9 +105,7 @@ public class CardGameGUI extends JFrame implements ActionListener {
         repaint();
     }
 
-    /**
-     * Run the game.
-     */
+
     public void displayGame() {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -120,9 +114,7 @@ public class CardGameGUI extends JFrame implements ActionListener {
         });
     }
 
-    /**
-     * Draw the display (cards and messages).
-     */
+
     public void repaint() {
         for (int k = 0; k < board.size(); k++) {
             String cardImageFileName =
@@ -147,9 +139,6 @@ public class CardGameGUI extends JFrame implements ActionListener {
         panel.repaint();
     }
 
-    /**
-     * Initialize the display.
-     */
     private void initDisplay()	{
         panel = new JPanel() {
             public void paintComponent(Graphics g) {
@@ -157,8 +146,7 @@ public class CardGameGUI extends JFrame implements ActionListener {
             }
         };
 
-        // If board object's class name follows the standard format
-        // of ...Board or ...board, use the prefix for the JFrame title
+
         String className = board.getClass().getSimpleName();
         int classNameLen = className.length();
         int boardLen = "Board".length();
@@ -168,8 +156,7 @@ public class CardGameGUI extends JFrame implements ActionListener {
             setTitle(className.substring(0, titleLength));
         }
 
-        // Calculate number of rows of cards (5 cards per row)
-        // and adjust JFrame height if necessary
+
         int numCardRows = (board.size() + 4) / 5;
         int height = DEFAULT_HEIGHT;
         if (numCardRows > 2) {
@@ -239,24 +226,12 @@ public class CardGameGUI extends JFrame implements ActionListener {
         panel.setVisible(true);
     }
 
-    /**
-     * Deal with the user clicking on something other than a button or a card.
-     */
     private void signalError() {
         Toolkit t = panel.getToolkit();
         t.beep();
     }
 
-    /**
-     * Returns the image that corresponds to the input card.
-     * Image names have the format "[Rank][Suit].GIF" or "[Rank][Suit]S.GIF",
-     * for example "aceclubs.GIF" or "8heartsS.GIF". The "S" indicates that
-     * the card is selected.
-     *
-     * @param c Card to get the image for
-     * @param isSelected flag that indicates if the card is selected
-     * @return String representation of the image
-     */
+
     private String imageFileName(Card c, boolean isSelected) {
         String str = "cards/";
         if (c == null) {
@@ -270,11 +245,7 @@ public class CardGameGUI extends JFrame implements ActionListener {
         return str;
     }
 
-    /**
-     * Respond to a button click (on either the "Replace" button
-     * or the "Restart" button).
-     * @param e the button click action event
-     */
+
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(replaceButton)) {
             // Gather all the selected cards.
